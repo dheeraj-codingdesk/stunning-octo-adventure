@@ -32,7 +32,8 @@ export function useEntries() {
   }, [user])
 
   async function addEntry({ title, body, tags }) {
-    await addDoc(collection(db, 'users', user.uid, 'entries'), {
+    if (!user) throw new Error('Not authenticated')
+    return addDoc(collection(db, 'users', user.uid, 'entries'), {
       title,
       body,
       tags,

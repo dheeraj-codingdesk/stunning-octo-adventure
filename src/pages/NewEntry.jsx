@@ -29,8 +29,12 @@ export default function NewEntry() {
 
   async function handleSave() {
     if (!title.trim()) return
-    await addEntry({ title, body, tags })
-    navigate('/')
+    try {
+      await addEntry({ title, body, tags })
+      navigate('/')
+    } catch (err) {
+      alert('Save failed: ' + err.message)
+    }
   }
 
   return (
